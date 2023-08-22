@@ -40,6 +40,13 @@ def chat(system_prompts, user_inp, hist):
 
 
 model_name = "stabilityai/StableBeluga-7B"
+# Set up bits and bytes config
+bnb_config = transformers.BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_compute_dtype=bfloat16,
+)
 # Create model config using model name
 model_config = transformers.AutoConfig.from_pretrained(model_name)
 # Create model using model config
@@ -47,6 +54,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     model_name,
     trust_remote_code=True,
     config=model_config,
+    quantization_config=bnb_config,
     device_map="auto",
 )
 # Create tokenizer using model config
