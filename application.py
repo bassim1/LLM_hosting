@@ -82,4 +82,4 @@ with gr.Blocks() as demo:
         allow_custom_value=True,
     )
     chatbot = gr.ChatInterface(fn=chat, additional_inputs=[dropdown])
-    demo.queue(api_open=False).launch(show_api=False)
+    demo.queue(api_open=False).launch(server_name="100.118.148.23", show_api=False)
